@@ -1,5 +1,6 @@
+from unittest.mock import patch
+
 import pytest
-from unittest.mock import MagicMock, patch
 
 from redatui.redis_client import RedisClient
 

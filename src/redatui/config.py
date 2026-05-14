@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 try:
     import toml
@@ -30,7 +30,7 @@ def get_config_path() -> Path:
     return config_home / "config.toml"
 
 
-def load_config() -> Dict[str, Any]:
+def load_config() -> dict[str, Any]:
     """Load config from ~/.config/redatui/config.toml, merging with defaults."""
     if toml is None:
         logger.warning("toml module not found, using default config")
@@ -61,7 +61,7 @@ def load_config() -> Dict[str, Any]:
         return DEFAULT_CONFIG.copy()
 
 
-def save_config(config: Dict[str, Any]) -> None:
+def save_config(config: dict[str, Any]) -> None:
     """Save config to ~/.config/redatui/config.toml"""
     if toml is None:
         logger.warning("toml module not found, cannot save config")

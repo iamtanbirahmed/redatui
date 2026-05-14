@@ -1,10 +1,7 @@
 import logging
-from typing import List
 
-from textual.containers import Container, Horizontal, Vertical
 from textual.widgets import Input, Static, Tree
 from textual.widgets.tree import TreeNode
-
 
 logger = logging.getLogger(__name__)
 
@@ -12,7 +9,7 @@ logger = logging.getLogger(__name__)
 class NamespaceTree(Tree):
     """Tree widget for browsing Redis keys organized by namespace."""
 
-    def __init__(self, keys: List[str], delimiter: str = ":"):
+    def __init__(self, keys: list[str], delimiter: str = ":"):
         super().__init__(label="Keys", id="namespace-tree")
         self.keys = keys
         self.delimiter = delimiter
@@ -29,7 +26,7 @@ class NamespaceTree(Tree):
             parts = key.split(self.delimiter)
             current = namespaces
 
-            for i, part in enumerate(parts[:-1]):
+            for _i, part in enumerate(parts[:-1]):
                 if part not in current:
                     current[part] = {}
                 current = current[part]

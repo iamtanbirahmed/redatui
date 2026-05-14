@@ -1,11 +1,10 @@
 import asyncio
 import json
 import logging
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import redis
 from redis import Redis
-
 
 logger = logging.getLogger(__name__)
 
@@ -13,12 +12,12 @@ logger = logging.getLogger(__name__)
 class RedisClient:
     """Async-friendly wrapper around redis-py for TUI operations."""
 
-    def __init__(self, host: str, port: int, db: int, password: Optional[str] = None):
+    def __init__(self, host: str, port: int, db: int, password: str | None = None):
         self.host = host
         self.port = port
         self.db = db
         self.password = password
-        self.client: Optional[Redis] = None
+        self.client: Redis | None = None
         self._connect()
 
     def _connect(self) -> None:
@@ -37,12 +36,12 @@ class RedisClient:
             logger.error(f"Failed to connect to Redis: {e}")
             raise
 
-    async def list_keys(self, pattern: str = "*") -> List[str]:
+    async def list_keys(self, pattern: str = "*") -> list[str]:
         """Async wrapper to list keys matching pattern."""
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(None, self._list_keys, pattern)
 
-    def _list_keys(self, pattern: str = "*") -> List[str]:
+    def _list_keys(self, pattern: str = "*") -> list[str]:
         """List keys matching pattern (blocking)."""
         if not self.client:
             return []
@@ -52,12 +51,12 @@ class RedisClient:
             logger.error(f"Failed to list keys: {e}")
             return []
 
-    async def get_key_data(self, key: str) -> Optional[Dict[str, Any]]:
+    async def get_key_data(self, key: str) -> dict[str, Any] | None:
         """Async wrapper to fetch key data and metadata."""
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(None, self._get_key_data, key)
 
-    def _get_key_data(self, key: str) -> Optional[Dict[str, Any]]:
+    def _get_key_data(self, key: str) -> dict[str, Any] | None:
         """Fetch key data and metadata (blocking)."""
         if not self.client:
             return None
@@ -116,12 +115,12 @@ class RedisClient:
             logger.error(f"Failed to delete key {key}: {e}")
             return False
 
-    async def get_info(self) -> Dict[str, Any]:
+    async def get_info(self) -> dict[str, Any]:
         """Async wrapper to fetch Redis info."""
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(None, self._get_info)
 
-    def _get_info(self) -> Dict[str, Any]:
+    def _get_info(self) -> dict[str, Any]:
         """Fetch Redis server info (blocking)."""
         if not self.client:
             return {}

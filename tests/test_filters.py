@@ -1,6 +1,5 @@
-import pytest
 
-from redatui.filters import fuzzy_match, glob_match, regex_match, filter_keys
+from redatui.filters import filter_keys, fuzzy_match, glob_match, regex_match
 
 
 class TestFuzzyMatch:

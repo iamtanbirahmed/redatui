@@ -1,8 +1,7 @@
 import fnmatch
 import logging
 import re
-from typing import Callable, List
-
+from collections.abc import Callable
 
 logger = logging.getLogger(__name__)
 
@@ -58,7 +57,7 @@ def get_filter_function(pattern: str) -> Callable[[str], bool]:
         return lambda text: fuzzy_match(pattern, text)
 
 
-def filter_keys(keys: List[str], pattern: str) -> List[str]:
+def filter_keys(keys: list[str], pattern: str) -> list[str]:
     """Filter list of keys by pattern."""
     if not pattern.strip():
         return keys

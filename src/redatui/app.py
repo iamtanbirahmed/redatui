@@ -1,11 +1,10 @@
 import logging
-from typing import Any, Dict, Optional
+from typing import Any
 
 from textual.app import App as TextualApp
 
 from .redis_client import RedisClient
 from .screens import KeyBrowserScreen
-
 
 logger = logging.getLogger(__name__)
 
@@ -40,10 +39,10 @@ class RedatuiApp(TextualApp):
         ("ctrl+c", "quit", "Quit"),
     ]
 
-    def __init__(self, redis_config: Dict[str, Any]):
+    def __init__(self, redis_config: dict[str, Any]):
         super().__init__()
         self.redis_config = redis_config
-        self.redis_client: Optional[RedisClient] = None
+        self.redis_client: RedisClient | None = None
 
     def on_mount(self) -> None:
         """Initialize Redis connection and display screen."""

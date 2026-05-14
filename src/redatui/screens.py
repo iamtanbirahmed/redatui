@@ -1,15 +1,13 @@
 import logging
-from typing import Optional
 
 from textual.app import ComposeResult
-from textual.containers import Horizontal, Vertical
-from textual.screen import Screen
 from textual.binding import Binding
+from textual.containers import Vertical
+from textual.screen import Screen
 
 from .filters import filter_keys
 from .redis_client import RedisClient
 from .widgets import DataViewer, InfoBar, NamespaceTree, SearchInput
-
 
 logger = logging.getLogger(__name__)
 
@@ -67,7 +65,7 @@ class KeyBrowserScreen(Screen):
         self.redis_client = redis_client
         self.all_keys: list[str] = []
         self.filtered_keys: list[str] = []
-        self.selected_key: Optional[str] = None
+        self.selected_key: str | None = None
         self.search_pattern: str = ""
 
     def compose(self) -> ComposeResult:
