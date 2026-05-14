@@ -1,7 +1,6 @@
 import logging
 from typing import Any, Dict, Optional
 
-from textual.app import ComposeResult, CSSFile, Widgets
 from textual.app import App as TextualApp
 
 from .redis_client import RedisClient
